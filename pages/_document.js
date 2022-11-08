@@ -1,5 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
+// Componente para agregar hojas de estilos externas, links y informacion meta
 export default function Document() {
   return (
     <Html>
@@ -29,6 +30,7 @@ export default function Document() {
       </Head>
 
       <body>
+        {/* Main invoca _app.js */}
         <Main />
         <NextScript />
       </body>

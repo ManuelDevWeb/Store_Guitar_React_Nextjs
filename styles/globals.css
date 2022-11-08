@@ -17,6 +17,7 @@ html {
 }
 
 body {
+  background-color: red;
   font-size: 2rem;
   font-family: var(--fuente-principal);
   line-height: 1.5;
