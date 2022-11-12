@@ -1,14 +1,12 @@
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
+
+// Components
+import { Navegacion } from "./navegacion";
 
 // Styles
 import styles from "../styles/header.module.css";
 
 const Header = () => {
-  // useRouter permite acceder a la info de la URL
-  const router = useRouter();
-
   return (
     <header className={styles.header}>
       <div className={`contenedor ${styles.barra}`}>
@@ -19,32 +17,7 @@ const Header = () => {
           alt="Imagen logotipo"
         />
 
-        <nav className={styles.navegacion}>
-          <Link
-            href="/"
-            className={router.pathname === "/" ? styles.active : ""}
-          >
-            Inicio
-          </Link>
-          <Link
-            href="/nosotros"
-            className={router.pathname === "/nosotros" ? styles.active : ""}
-          >
-            Nosotros
-          </Link>
-          <Link
-            href="/blog"
-            className={router.pathname === "/blog" ? styles.active : ""}
-          >
-            Blog
-          </Link>
-          <Link
-            href="/tienda"
-            className={router.pathname === "/tienda" ? styles.active : ""}
-          >
-            Tienda
-          </Link>
-        </nav>
+        <Navegacion />
       </div>
     </header>
   );
