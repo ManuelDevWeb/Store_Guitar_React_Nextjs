@@ -36,7 +36,7 @@
   transition-duration: 0.3s;
 }
 
-.contenido p {
+.contenido .copyright {
   color: var(--white);
   text-align: center;
 }

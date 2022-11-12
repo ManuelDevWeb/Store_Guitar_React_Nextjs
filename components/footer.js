@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={`contenedor ${styles.contenido}`}>
         <Navegacion />
-        <p>
+        <p className={styles.copyright}>
           Todos los derechos reservados {new Date().getFullYear()} @ManuelDevWeb
         </p>
       </div>
