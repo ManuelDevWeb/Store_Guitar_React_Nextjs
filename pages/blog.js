@@ -1,15 +1,15 @@
 // Components
 import { Layout } from "../components/layout";
 
-const Nosotros = () => {
+const Blog = () => {
   return (
     <Layout
-      title={"Nosotros"}
+      title={"Blog"}
       description={"Sobre Nosotros, GuitarLA, tienda de musica!"}
     >
-      <h1>Nosotros</h1>
+      <h1>Blog</h1>
     </Layout>
   );
 };
 
-export default Nosotros;
+export default Blog;
