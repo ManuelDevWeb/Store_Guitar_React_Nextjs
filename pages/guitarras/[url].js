@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 
 // Components
@@ -68,8 +69,39 @@ export async function getStaticProps(datos) {
   };
 }
 
-const Producto = ({ guitarra }) => {
+// Recibimos props y funciones del context que esta en _app.js
+const Producto = ({
+  guitarra,
+  agregarCarrito,
+  eliminarProducto,
+  actualizarCantidad,
+}) => {
   const { nombre, descripcion, imagen, precio } = guitarra[0].attributes;
+
+  // State que controla la cantidad de elementos a comprar
+  const [cantidad, setCantidad] = useState(0);
+
+  // Funcion que se ejecuta al enviar el formulario
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (cantidad < 1) {
+      alert("Cantidad no valida");
+      return;
+    }
+
+    // Construimos un objeto con la guitarra seleccionada
+    const guitarraSeleccionada = {
+      id: guitarra[0].id,
+      imagen: imagen.data.attributes.url,
+      nombre,
+      precio,
+      cantidad,
+    };
+
+    // Enviamos el objeto seleccionado al context
+    agregarCarrito(guitarraSeleccionada);
+  };
 
   return (
     <Layout
@@ -78,7 +110,7 @@ const Producto = ({ guitarra }) => {
     >
       <div className={styles.guitarra}>
         <Image
-          src={imagen.data.attributes.formats.medium.url}
+          src={imagen.data.attributes.url}
           width={600}
           height={400}
           alt={`Imagen guitarra ${nombre}`}
@@ -89,9 +121,13 @@ const Producto = ({ guitarra }) => {
           <p className={styles.descripcion}>{descripcion}</p>
           <p className={styles.precio}>${precio}</p>
 
-          <form className={styles.formulario}>
+          <form className={styles.formulario} onSubmit={handleSubmit}>
             <label htmlFor="cantidad">Cantidad: </label>
-            <select id="cantidad">
+            <select
+              id="cantidad"
+              // El caracter + lo convierte en number
+              onChange={(e) => setCantidad(+e.target.value)}
+            >
               <option value="0">-- Seleccione -- </option>
               <option value="1">1</option>
               <option value="2">2</option>
