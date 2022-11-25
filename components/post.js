@@ -22,7 +22,7 @@ const Post = ({ post }) => {
         <h3>{titulo}</h3>
         <p className={styles.fecha}>{formatearFecha(publishedAt)}</p>
         <p className={styles.resumen}>{contenido}</p>
-        <Link href={`/blog/${url}`} className={styles.enlace}>
+        <Link href={`/posts/${url}`} className={styles.enlace}>
           Leer Post
         </Link>
       </div>
