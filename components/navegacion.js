@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 const Navegacion = () => {
@@ -27,6 +28,17 @@ const Navegacion = () => {
         className={router.pathname === "/blog" ? "active" : ""}
       >
         Blog
+      </Link>
+      <Link
+        href="/carrito"
+        className={router.pathname === "/carrito" ? "active" : ""}
+      >
+        <Image
+          width={30}
+          height={25}
+          src="/img/carrito.png"
+          alt="Imagen carrito"
+        />
       </Link>
     </nav>
   );
