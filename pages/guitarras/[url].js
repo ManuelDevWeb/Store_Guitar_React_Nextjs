@@ -70,12 +70,7 @@ export async function getStaticProps(datos) {
 }
 
 // Recibimos props y funciones del context que esta en _app.js
-const Producto = ({
-  guitarra,
-  agregarCarrito,
-  eliminarProducto,
-  actualizarCantidad,
-}) => {
+const Producto = ({ guitarra, agregarCarrito }) => {
   const { nombre, descripcion, imagen, precio } = guitarra[0].attributes;
 
   // State que controla la cantidad de elementos a comprar

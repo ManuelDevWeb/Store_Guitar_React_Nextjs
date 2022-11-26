@@ -28,23 +28,15 @@ function MyApp({ Component, pageProps }) {
       // Si no existe en el carrito, significa que es nueva y la agregamos
       setCarrito([...carrito, producto]);
       // Almacenamos en local storage
-      localStorage.setItem("carrito", JSON.stringify(carrito));
+      window.localStorage.setItem("carrito", JSON.stringify(carrito));
     }
   };
 
   // Funcion para eliminar producto del carrito
-  const eliminarProducto = (id) => {
-    // Obtenemos la posicion del elemento
-    const indexElement = carrito.findIndex(
-      (productoState) => productoState.id === id
+  const eliminarProducto = async (id) => {
+    const carritoActualizado = carrito.filter(
+      (productoState) => productoState.id !== id
     );
-
-    if (indexElement === -1) {
-      alert("Producto no existe");
-    }
-
-    // Eliminamos el elemento
-    const carritoActualizado = carrito.slice(indexElement, 1);
 
     // Actualizamos el state con el carrito actualizado
     setCarrito(carritoActualizado);
