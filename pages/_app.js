@@ -1,11 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Global styles
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
+  // Si el codigo es del servidor indicamos que no haga nada, si es del navegador obtenemos el valor de carrito del local storage y si no existe, asignamos arreglo vacio a la variable
+  const carritoLocalStorage =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("carrito")) ?? []
+      : [];
+
   // State para manejar el carrito
-  const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito] = useState(carritoLocalStorage);
+  // State para manejar que el documento este listo
+  const [paginaLista, setPaginaLista] = useState(false);
+
+  // useEffect que se ejecuta una sola vez
+  useEffect(() => {
+    setPaginaLista(true);
+  }, []);
+
+  // useEffect que se ejecuta cada que cambie el state carrito
+  useEffect(() => {
+    // Almacenamos en local storage
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
 
   // Funciones que vamos a compartir al contexto MyApp
 
@@ -28,7 +47,7 @@ function MyApp({ Component, pageProps }) {
       // Si no existe en el carrito, significa que es nueva y la agregamos
       setCarrito([...carrito, producto]);
       // Almacenamos en local storage
-      window.localStorage.setItem("carrito", JSON.stringify(carrito));
+      localStorage.setItem("carrito", JSON.stringify(carrito));
     }
   };
 
@@ -42,7 +61,7 @@ function MyApp({ Component, pageProps }) {
     setCarrito(carritoActualizado);
 
     // Almacenamos en local storage
-    window.localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("carrito", JSON.stringify(carrito));
   };
 
   // Funcion para actualizar cantidad producto del carrito
@@ -58,10 +77,11 @@ function MyApp({ Component, pageProps }) {
     setCarrito(carritoActualizado);
 
     // Almacenamos en local storage
-    window.localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("carrito", JSON.stringify(carrito));
   };
 
-  return (
+  // El state de paginaLista nos evita errores de hidratacion (Esto ocurre cuando la UI inicial no coincide con la renderizada)
+  return paginaLista ? (
     <Component
       {...pageProps}
       carrito={carrito}
@@ -69,7 +89,7 @@ function MyApp({ Component, pageProps }) {
       eliminarProducto={eliminarProducto}
       actualizarCantidad={actualizarCantidad}
     />
-  );
+  ) : null;
 }
 
 export default MyApp;
